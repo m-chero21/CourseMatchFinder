@@ -75,6 +75,9 @@ export interface QualificationFormData {
   undergradDegree?: string;
   undergradGrade?: string;
   // Postgraduate specific
+  undergradDegreeCompleted?: string;
+  undergradGradeReceived?: string;
+  undergradInstitution?: string;
   workExperience?: string;
   researchInterest?: string;
 }

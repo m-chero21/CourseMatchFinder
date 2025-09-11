@@ -34,6 +34,9 @@ const undergraduateFormSchema = baseFormSchema.extend({
 });
 
 const postgraduateFormSchema = baseFormSchema.extend({
+  undergradDegreeCompleted: z.string().min(1, "Undergraduate degree is required for postgraduate applications"),
+  undergradGradeReceived: z.string().min(1, "Undergraduate grade is required for postgraduate applications"),
+  undergradInstitution: z.string().optional(),
   workExperience: z.string().optional(),
   researchInterest: z.string().optional(),
 });
@@ -76,6 +79,9 @@ export default function QualificationForm({ studyLevel, onSubmit, onBack }: Qual
         undergradDegree: "",
         undergradGrade: "",
       } : {
+        undergradDegreeCompleted: "",
+        undergradGradeReceived: "",
+        undergradInstitution: "",
         workExperience: "",
         researchInterest: "",
       }),
@@ -107,6 +113,9 @@ export default function QualificationForm({ studyLevel, onSubmit, onBack }: Qual
         undergradDegree: (data as any).undergradDegree,
         undergradGrade: (data as any).undergradGrade,
       } : {
+        undergradDegreeCompleted: (data as any).undergradDegreeCompleted,
+        undergradGradeReceived: (data as any).undergradGradeReceived,
+        undergradInstitution: (data as any).undergradInstitution,
         workExperience: (data as any).workExperience,
         researchInterest: (data as any).researchInterest,
       }),
@@ -262,40 +271,102 @@ export default function QualificationForm({ studyLevel, onSubmit, onBack }: Qual
                   </div>
                 ) : (
                   <div className="space-y-6">
-                    <FormField
-                      control={form.control}
-                      name="workExperience"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Work Experience (Optional)</FormLabel>
-                          <FormControl>
-                            <Input 
-                              placeholder="Years of experience in relevant field" 
-                              {...field}
-                              data-testid="input-work-experience"
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="researchInterest"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Research Interest (Optional)</FormLabel>
-                          <FormControl>
-                            <Input 
-                              placeholder="Area you'd like to research or specialize in" 
-                              {...field}
-                              data-testid="input-research-interest"
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                    <div className="border-t pt-6">
+                      <h3 className="text-lg font-semibold mb-4">Undergraduate Degree Information</h3>
+                      <div className="grid md:grid-cols-2 gap-6">
+                        <FormField
+                          control={form.control}
+                          name="undergradDegreeCompleted"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Undergraduate Degree Completed *</FormLabel>
+                              <FormControl>
+                                <Input 
+                                  placeholder="e.g., BSc Computer Science, BA English Literature" 
+                                  {...field}
+                                  data-testid="input-undergrad-degree-completed"
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="undergradGradeReceived"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Grade/Classification Received *</FormLabel>
+                              <FormControl>
+                                <Input 
+                                  placeholder="e.g., First Class, 2:1, 3.8 GPA, Magna Cum Laude" 
+                                  {...field}
+                                  data-testid="input-undergrad-grade-received"
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      <FormField
+                        control={form.control}
+                        name="undergradInstitution"
+                        render={({ field }) => (
+                          <FormItem className="mt-4">
+                            <FormLabel>University/Institution (Optional)</FormLabel>
+                            <FormControl>
+                              <Input 
+                                placeholder="e.g., University of Oxford, Harvard University" 
+                                {...field}
+                                data-testid="input-undergrad-institution"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    
+                    <div className="border-t pt-6">
+                      <h3 className="text-lg font-semibold mb-4">Additional Information</h3>
+                      <div className="space-y-4">
+                        <FormField
+                          control={form.control}
+                          name="workExperience"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Work Experience (Optional)</FormLabel>
+                              <FormControl>
+                                <Input 
+                                  placeholder="Years of experience in relevant field" 
+                                  {...field}
+                                  data-testid="input-work-experience"
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="researchInterest"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Research Interest (Optional)</FormLabel>
+                              <FormControl>
+                                <Input 
+                                  placeholder="Area you'd like to research or specialize in" 
+                                  {...field}
+                                  data-testid="input-research-interest"
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
                   </div>
                 )}
 
