@@ -22,7 +22,7 @@ export const courses = pgTable("courses", {
   intakeDate: text("intake_date").notNull(),
   applicationDeadline: text("application_deadline").notNull(),
   tuitionCost: text("tuition_cost").notNull(),
-  requirements: jsonb("requirements"), // Store qualification requirements as JSON
+  requirements: jsonb("requirements").notNull(), // Store qualification requirements as JSON
   description: text("description"),
 });
 
@@ -32,7 +32,7 @@ export const qualificationSubmissions = pgTable("qualification_submissions", {
   studyLevel: text("study_level").notNull(),
   country: text("country").notNull(),
   qualifications: jsonb("qualifications").notNull(), // Store all qualifications as JSON
-  additionalInfo: jsonb("additional_info"), // Store degree, experience, etc.
+  additionalInfo: jsonb("additional_info").notNull(), // Store degree, experience, etc.
 });
 
 export const insertUserSchema = createInsertSchema(users).pick({
