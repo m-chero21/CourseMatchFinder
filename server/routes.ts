@@ -57,6 +57,11 @@ function matchCourses(qualificationData: QualificationFormData, allCourses: Cour
           qualificationData.undergradGradeReceived?.includes('3.')) {
         score += 15;
       }
+    } else {
+      // Fallback: if no specific requirements, give some score based on level match
+      if (!requirements || Object.keys(requirements).length === 0) {
+        score += 25; // Basic score for level match
+      }
     }
     
     if (score > 0) {
@@ -111,7 +116,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       // Validate the request body
       const qualificationData = req.body as QualificationFormData;
-      
       // Store the qualification submission
       const submissionData = {
         studyLevel: qualificationData.studyLevel,

@@ -16,6 +16,7 @@ interface QualificationFormProps {
   studyLevel: StudyLevel;
   onSubmit: (data: QualificationFormData) => void;
   onBack: () => void;
+  loading?: boolean;
 }
 
 const subjectGradeSchema = z.object({
@@ -64,7 +65,7 @@ const countries = [
   "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
 ];
 
-export default function QualificationForm({ studyLevel, onSubmit, onBack }: QualificationFormProps) {
+export default function QualificationForm({ studyLevel, onSubmit, onBack, loading = false }: QualificationFormProps) {
   const [newSubject, setNewSubject] = useState("");
   const [newGrade, setNewGrade] = useState<Grade>("A");
 
@@ -373,10 +374,10 @@ export default function QualificationForm({ studyLevel, onSubmit, onBack }: Qual
                 <Button 
                   type="submit" 
                   className="w-full text-lg py-6" 
-                  disabled={qualifications.length === 0}
+                  disabled={qualifications.length === 0 || loading}
                   data-testid="button-submit"
                 >
-                  Find Matching Courses
+                  {loading ? "Finding Courses..." : "Find Matching Courses"}
                 </Button>
               </form>
             </Form>
